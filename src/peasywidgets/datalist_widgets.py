@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 
-class ChoiceFilterSingle(forms.Widget):
+class DatalistSingle(forms.Widget):
     def __init__(self, choices=None, attrs=None):
         self.choices = choices
         super().__init__(attrs)
@@ -17,12 +17,13 @@ class ChoiceFilterSingle(forms.Widget):
             "name": name,
             "current_object": current_object,
             "choices": self.choices,
+            "single": "true",
         }
-        output = render_to_string("choice_filter_single.html", context)
+        output = render_to_string("datalist.html", context)
         return mark_safe(output)
 
 
-class ChoiceFilterMultiple(forms.Widget):
+class DatalistMultiple(forms.Widget):
     def __init__(self, object_model, choices=[], attrs=None):
         self.object_model = object_model
         if choices:
@@ -39,8 +40,9 @@ class ChoiceFilterMultiple(forms.Widget):
                 o for o in self.object_model.objects.filter(pk__in=value)
             ],
             "choices": self.choices,
+            "single": "false",
         }
-        output = render_to_string("choice_filter_multi.html", context)
+        output = render_to_string("datalist.html", context)
         return mark_safe(output)
 
     def value_from_datadict(self, data: QueryDict, files, name):
