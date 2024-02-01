@@ -14,6 +14,7 @@ class Datalist(forms.Widget):
     If being used for a ForeignKey or ManyToManyField, the object_model
     parameter should be set to the model class of the related objects.
     """
+
     def __init__(
         self,
         multiple=True,
@@ -22,18 +23,25 @@ class Datalist(forms.Widget):
         attrs=None,
         datalist_attrs=[],
         input_attrs=[],
+        input_classlist=[],
+        add_button_classlist=[],
+        wrapper_div_classlist=[],
     ):
         self.multiple = multiple
         self.object_model = object_model
         self.choices = choices
         self.datalist_attrs = datalist_attrs
         self.input_attrs = input_attrs
+        self.input_classlist = input_classlist
+        self.add_btn_classlist = add_button_classlist
+        self.wrapper_div_classlist = wrapper_div_classlist
         super().__init__(attrs)
 
     def render(self, name, value, attrs=None, renderer=None):
+        print(f"\nname: {name}\nvalue: {value}\n")
         if value is None:
             value = []
-        if not hasattr(value, "__iter__"):
+        elif not hasattr(value, "__iter__"):
             value = [value]
         current_values = (
             [o for o in self.object_model.objects.filter(pk__in=value)]
@@ -47,7 +55,12 @@ class Datalist(forms.Widget):
             "single": "false" if self.multiple else "true",
             "datalist_attrs": render_attributes(self.datalist_attrs),
             "input_attrs": render_attributes(self.input_attrs),
+            "input_classlist": " ".join(self.input_classlist),
+            "add_btn_classlist": " ".join(self.add_btn_classlist),
+            "wrapper_div_classlist": " ".join(self.wrapper_div_classlist),
         }
+        if not self.multiple:
+            print(f"\nname: {name}\nvalue: {value}\ncurrent_values: {current_values}\n")
         output = render_to_string("datalist.html", context)
         return mark_safe(output)
 
