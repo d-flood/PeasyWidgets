@@ -38,7 +38,6 @@ class Datalist(forms.Widget):
         super().__init__(attrs)
 
     def render(self, name, value, attrs=None, renderer=None):
-        print(f"\nname: {name}\nvalue: {value}\n")
         if value is None:
             value = []
         elif not hasattr(value, "__iter__"):
@@ -59,8 +58,6 @@ class Datalist(forms.Widget):
             "add_btn_classlist": " ".join(self.add_btn_classlist),
             "wrapper_div_classlist": " ".join(self.wrapper_div_classlist),
         }
-        if not self.multiple:
-            print(f"\nname: {name}\nvalue: {value}\ncurrent_values: {current_values}\n")
         output = render_to_string("datalist.html", context)
         return mark_safe(output)
 
