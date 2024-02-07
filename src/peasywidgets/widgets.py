@@ -25,6 +25,7 @@ class Datalist(forms.Widget):
         input_attrs=[],
         input_classlist=[],
         add_button_classlist=[],
+        add_button_attrs=[],
         wrapper_div_classlist=[],
     ):
         self.multiple = multiple
@@ -34,6 +35,7 @@ class Datalist(forms.Widget):
         self.input_attrs = input_attrs
         self.input_classlist = input_classlist
         self.add_btn_classlist = add_button_classlist
+        self.add_btn_attrs = add_button_attrs
         self.wrapper_div_classlist = wrapper_div_classlist
         super().__init__(attrs)
 
@@ -56,6 +58,7 @@ class Datalist(forms.Widget):
             "input_attrs": render_attributes(self.input_attrs),
             "input_classlist": " ".join(self.input_classlist),
             "add_btn_classlist": " ".join(self.add_btn_classlist),
+            "add_btn_attrs": render_attributes(self.add_btn_attrs),
             "wrapper_div_classlist": " ".join(self.wrapper_div_classlist),
         }
         output = render_to_string("datalist.html", context)
