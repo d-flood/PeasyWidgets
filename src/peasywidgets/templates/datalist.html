@@ -6,7 +6,7 @@
             autocomplete="off" list="{{ name }}_datalist">
         <button type="button" class="peasy-btn {{ add_btn_classlist }}" id="{{ name }}_add_btn"
             data-name="{{ name }}" data-inputid="{{ name }}_input" data-datalistid="{{ name }}_datalist" data-targetul="id_{{ name }}_ul" data-single="{{ single }}"
-            onclick="datalistFilterAdd(this, event)" {{ add_button_attrs|safe }}>
+            onclick="datalistFilterAdd(this, event)" {{ add_btn_attrs|safe }}>
             Add
         </button>
     </div>
