@@ -55,33 +55,6 @@ function sendFocusBack(currentElem) {
     }
 }
 
-// ###############################################################################
-// ChoiceFilterSingle Functions
-
-// add selected option to input
-// function selectChoiceSingle(name, button) {
-//     let visible_input = document.getElementById(`${name}_visible_input`);
-//     visible_input.value = button.innerText;
-//     document.getElementById(`${name}_hidden_input`).value = button.dataset.value;
-//     button.parentElement.parentElement.style.display = "none";
-//     validateInput(visible_input, document.getElementById(`${name}_ul`));
-// }
-
-// function setInitialDisplay(inputElem) {
-//     let ulElem = document.getElementById(`${inputElem.dataset.name}_ul`);
-//     let liElems = ulElem.getElementsByTagName("li");
-//     for (let liElem of liElems) {
-//         let button = liElem.getElementsByTagName("button")[0];
-//         if (button.dataset.value === inputElem.dataset.value) {
-//             inputElem.value = button.innerText;
-//             return;
-//         }
-//     }
-// }
-
-// ###############################################################################
-// ChoiceFilterMultiple Functions
-
 function choiceFilterRemoveItem(elem) {
     let li = elem.parentElement;
     if (li.nextElementSibling) {
@@ -102,8 +75,7 @@ function datalistFilterAdd(button, event) {
     let targetUl = document.getElementById(button.dataset.targetul);
     let single = button.dataset.single === 'true';
     let success = false;
-    // if ',' in input, add multiple items
-    if (input.value.includes(",")) {
+    if (input.value.includes(",") && event.ctrlKey) {
         // try to add multiple items
         let inputValues = input.value.split(",");
         for (let inputValue of inputValues) {
